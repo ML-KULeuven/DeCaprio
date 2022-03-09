@@ -31,12 +31,13 @@ The code is structured as follows:
 An instance of a Scorer is used to rank all parameter configurations based on previous knowledge during the search. <br>
 The output of both experiment files comparing scorers is a dataframe for every model. These dataframes contain the tested configuration in order during the search. For convenience, the dataframe also contains metadata of the search itself such as wallclock time and the runtime of a tested configuration.
 
+## Overview of the algorithm
+<img width="512" alt="image" src="https://user-images.githubusercontent.com/26082385/157458884-8be1695e-b3e9-4759-a3f6-f43a829c99f0.png">
+In each iteration of the algorithm, a model must be solved using a candidate parameter configuration. This step is slow compared to the rest of the algorithm, which consists only of updating counts of parameter values.
+Therefore, we ran an entire grid search consisting of all parameter configuration and CPMpy models. Once this data is obtained, we can use these cached runtimes to evaluate an implemented scoring function.
 
-## Getting the data
-To speedup experiments found in this repository, we used cached runtimes for all models and configurations.
-All configuration were timed out on 105% of the default runtime.
-These can be found via the following dropbox link: https://www.dropbox.com/s/w4dn19p31cg7g5r/grid_search.pickle?dl=1
-
+### Getting the data
+All configuration runtimes were capped on 105% of the default runtime.
 The data is structured as a pandas dataframe and contains the runtime for every configuration on every model found in [cpmpy_models/](/cpmpy_models)
 
 All runtimes were obtained using an Intel(R) Xeon(R) Silver 4214 CPU with the number of thread per model limited to 1.
