@@ -12,7 +12,7 @@ from parameters import param_order, defaults
 
 def params_to_np(combos):
     """
-        :param combos: a dictionary with (parameter_name, value) pairs
+        :param combos: a list of dictionaries with (parameter_name, value) pairs
         :return: a numpy array with the values of the parameters in predefined order
     """
     arr = [[params[key] for key in param_order] for params in combos]
