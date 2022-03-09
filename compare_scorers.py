@@ -45,7 +45,11 @@ n_runs = 10
 ## Ignored if use_precomputed_data is False
 # Directory with results of grid search
 if use_precomputed_data:
-    grid_search_data = pd.read_pickle("grid_search.pickle")
+    try:
+        grid_search_data = pd.read_pickle("grid_search.pickle")
+    except FileNotFoundError:
+        raise FileNotFoundError("Cannot find precomputed dataframe with runtimes. Set use_precomputed_data to False or "
+                                "download the precomputed dataframe (see the README).")
     # Suffix after model name in filenames of precomputed data
     #Calculate number of runs in grid search
     runs_in_gridsearch = len(grid_search_data.columns.unique(level=1))
