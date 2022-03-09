@@ -31,14 +31,14 @@ The code is structured as follows:
 Each class contained in the *scorers* directory represents both a surrogate model and the associated scoring function which is used to rank hyperparameter configurations. <br>
 Each experiment file comparing scorers outputs multiple dataframes, one for every problem instance. These dataframes contain the hyperparameter configurations in the order they were tried during the search. Additionally, the dataframe contains wallclock times and the runtimes of the tested configurations.
 
-### Two-phase experiments
+## Two-phase experiments
 In each iteration of the DeCaprio algorithm, a problem instance must be solved using a certain hyperparameter configuration. This step is typically slow compared to the rest of the algorithm, which consists of updating the surrogate model and ranking the remaining hyperparameter configurations using the scoring function. This means that when multiple scorers are compared in an experiment, the same problem instance is solved with the same hyperparameter configuration multiple times (once for each scorer in the comparison). This needlessly slows down the experiments considerably.  
 
 To prevent this slow-down, we performed our experiments in two phases. In the first phase, a solve call is executed for each combination of a hyperparameter configuration and problem instance, and all the resulting runtimes are saved in a pandas dataframe. In the second phase, the different scorers are compared, but instead of performing actual solver calls, the dataframe computed in phase 1 is used to simulate the solver calls with. A solve call then simply corresponds to a runtime look-up in the dataframe. This significantly speeds up the experiments.
 
 The *compare_scorers* experiment can be executed with or without the use of the precomputed dataframe; this can be controlled by setting the *use_precomputed_dataframe* Boolean variable accordingly.
 
-### Getting the precomputed pandas dataframe
+## Getting the precomputed pandas dataframe
 To download the dataframe, use the following command:
 ```console
 wget -O grid_search.pickle https://www.dropbox.com/s/w4dn19p31cg7g5r/grid_search.pickle?dl=1
