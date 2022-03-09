@@ -46,8 +46,11 @@ wget -O grid_search.pickle https://www.dropbox.com/s/w4dn19p31cg7g5r/grid_search
 
 The data is structured as a pandas dataframe and contains the runtime for every configuration on every problem instance found in [cpmpy_models/](/cpmpy_models)
 Every configuration is assigned an id based on the hyperparameter values it contains. To convert from config ids to actual hyperparameter configuraions, use the helper functions found in [utils.py](/utils.py)
+
 All configuration runtimes were capped on 105% of the default configuration's runtime. This does not affect the search in phase 2 of the experiments, as the first runtime cap in the search is always the default configuration's runtime.
+
 All runtimes were obtained using an Intel(R) Xeon(R) Silver 4214 CPU with the number of threads per problem instance limited to 1.
+
 For every instance-hyperparameter configuration combination, 5 seperate runs of OR-Tools' CP-SAT solver were performed.
 
 
