@@ -32,7 +32,9 @@ An instance of a Scorer is used to rank all parameter configurations based on pr
 The output of both experiment files comparing scorers is a dataframe for every model. These dataframes contain the tested configuration in order during the search. For convenience, the dataframe also contains metadata of the search itself such as wallclock time and the runtime of a tested configuration.
 
 ## Overview of the algorithm
-<img width="512" alt="image" src="https://user-images.githubusercontent.com/26082385/157458884-8be1695e-b3e9-4759-a3f6-f43a829c99f0.png">
+<p align="center">
+<img width=70% alt="image" src="https://user-images.githubusercontent.com/26082385/157458884-8be1695e-b3e9-4759-a3f6-f43a829c99f0.png">
+</p>
 In each iteration of the algorithm, a model must be solved using a candidate parameter configuration. This step is slow compared to the rest of the algorithm, which consists only of updating counts of parameter values.
 Therefore, we ran an entire grid search consisting of all parameter configuration and CPMpy models. Once this data is obtained, we can use these cached runtimes to evaluate an implemented scoring function.
 
