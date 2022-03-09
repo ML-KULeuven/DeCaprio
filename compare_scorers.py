@@ -133,9 +133,15 @@ if __name__ == "__main__":
     if use_precomputed_data:
         print(f"Found {runs_in_gridsearch} runs in gridsearch")
 
-    num_threads = mp.cpu_count()
-    pool = mp.Pool(1)
-
     model_names = [fname.replace(model_suffix, "") for fname in os.listdir(model_root)]
-    pool.map(compare_on_model, sorted(model_names))
+
+    use_multiprocessing = True
+
+    if use_multiprocessing:
+        num_threads = mp.cpu_count()
+        pool = mp.Pool(num_threads-2)
+        pool.map(compare_on_model, sorted(model_names))
+    else:
+        for model_name in sorted(model_names):
+            compare_on_model(model_name)
 
