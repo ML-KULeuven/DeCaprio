@@ -36,7 +36,7 @@ In each iteration of the DeCaprio algorithm, a problem instance must be solved u
 
 To prevent this slow-down, we performed our experiments in two phases. In the first phase, a solve call is executed for each combination of a hyperparameter configuration and problem instance, and all the resulting runtimes are saved in a pandas dataframe. In the second phase, the different scorers are compared, but instead of performing actual solver calls, the dataframe computed in phase 1 is used to simulate the solver calls with. A solve call then simply corresponds to a runtime look-up in the dataframe. This significantly speeds up the experiments.
 
-The *compare_scorers* experiment can be executed with or without the use of the precomputed dataframe; this can be controlled by setting the *use_precomputed_dataframe* Boolean variable accordingly.
+The *compare_scorers* experiment can be executed with or without the use of the precomputed dataframe; this can be controlled by setting the *use_precomputed_data* Boolean variable accordingly.
 
 ## Getting the precomputed pandas dataframe
 To download the dataframe, use the following command:
