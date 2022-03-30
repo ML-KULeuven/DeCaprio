@@ -24,5 +24,14 @@ defaults = {
     'treat_binary_clauses_separately': True
 }
 
-param_order = sorted(list(all_params.keys()))
+param_order = [ 'cp_model_probing_level',
+                'preferred_variable_order',
+                'linearization_level',
+                'symmetry_level',
+                'minimization_algorithm',
+                'search_branching',
+                'optimize_with_core',
+                'use_erwa_heuristic',
+                'treat_binary_clauses_separately'
+            ]
 
