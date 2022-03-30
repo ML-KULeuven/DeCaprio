@@ -45,7 +45,11 @@ n_runs = 10
 ## Ignored if use_precomputed_data is False
 # Directory with results of grid search
 if use_precomputed_data:
-    grid_search_data = pd.read_pickle("grid_search.pickle")
+    try:
+        grid_search_data = pd.read_pickle("grid_search.pickle")
+    except FileNotFoundError:
+        raise FileNotFoundError("Cannot find precomputed dataframe with runtimes. Set use_precomputed_data to False or "
+                                "download the precomputed dataframe (see the README).")
     # Suffix after model name in filenames of precomputed data
     #Calculate number of runs in grid search
     runs_in_gridsearch = len(grid_search_data.columns.unique(level=1))
@@ -129,9 +133,15 @@ if __name__ == "__main__":
     if use_precomputed_data:
         print(f"Found {runs_in_gridsearch} runs in gridsearch")
 
-    num_threads = mp.cpu_count()
-    pool = mp.Pool(1)
-
     model_names = [fname.replace(model_suffix, "") for fname in os.listdir(model_root)]
-    pool.map(compare_on_model, sorted(model_names))
+
+    use_multiprocessing = True
+
+    if use_multiprocessing:
+        num_threads = mp.cpu_count()
+        pool = mp.Pool(num_threads-2)
+        pool.map(compare_on_model, sorted(model_names))
+    else:
+        for model_name in sorted(model_names):
+            compare_on_model(model_name)
 
