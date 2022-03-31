@@ -42,7 +42,9 @@ class HammingDirichlet(Score):
 
     @abstractmethod
     def add_negative(self, params):
-        pass
+        for i in range(len(params)):
+            self.counts[i, np.arange(self.counts.shape[1]) != params[i]] += 1
+        return super().add_negative(params)
 
     def get_score(self, combos):
         mtrx = np.tile(self.latest_improver, len(combos)).reshape(combos.shape)
