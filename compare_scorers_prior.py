@@ -38,7 +38,7 @@ outdir = "scorers_comparison_prior"
 # Suffix of the files containing the results of this experiment
 out_suffix = "_comparison.pickle"
 # Number of runs with different seeds
-n_runs = 2
+n_runs = 10
 
 # Directory with results of grid search
 grid_search_data = pd.read_pickle("grid_search.pickle")
@@ -46,7 +46,7 @@ grid_search_data = pd.read_pickle("grid_search.pickle")
 #Calculate number of runs in grid search
 runs_in_gridsearch = len(grid_search_data.columns.unique(level=1))
 
-def compare_on_model(model_name, verbose=True, model_idx=0):
+def compare_on_model(model_name, verbose=False, model_idx=0):
     """
         This function compares different scorers on a given CPMpy model
     """
@@ -59,9 +59,8 @@ def compare_on_model(model_name, verbose=True, model_idx=0):
 
     # Define scorers to be compared
     scorers = [
-               RandomUniform,
-               Hamming,
-               Beta,
+               SimplePrior,
+               SortedPrior,
                Dirichlet,
                HammingDirichlet,
             ]
@@ -126,7 +125,7 @@ if __name__ == "__main__":
     print(f"Found {runs_in_gridsearch} runs in gridsearch")
 
     num_threads = mp.cpu_count()
-    pool = mp.Pool(5)
+    pool = mp.Pool(num_threads-2)
 
     pool.map(compare_on_model, sorted(model_names))
 
