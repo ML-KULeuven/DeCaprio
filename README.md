@@ -41,7 +41,7 @@ The *compare_scorers* experiment can be executed with or without the use of the 
 ## Getting the precomputed pandas dataframe
 To download the dataframe, use the following command:
 ```console
-wget -O grid_search.pickle https://www.dropbox.com/s/w4dn19p31cg7g5r/grid_search.pickle?dl=1
+wget -O grid_search.pickle https://rdr.kuleuven.be/api/access/datafile/163?gbrecs=true
 ```
 
 The data is structured as a pandas dataframe and contains 5 runtimes (one per seed) for every configuration on every problem instance found in [cpmpy_models/](/cpmpy_models)
